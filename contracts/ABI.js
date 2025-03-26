@@ -4,17 +4,17 @@ const T3RN_ABI = [
     name: 'Approval',
     inputs: [
       {
-        indexed: !0,
+        indexed: true,
         name: 'owner',
         type: 'address',
       },
       {
-        indexed: !0,
+        indexed: true,
         name: 'spender',
         type: 'address',
       },
       {
-        indexed: !1,
+        indexed: false,
         name: 'value',
         type: 'uint256',
       },
@@ -25,17 +25,17 @@ const T3RN_ABI = [
     name: 'Transfer',
     inputs: [
       {
-        indexed: !0,
+        indexed: true,
         name: 'from',
         type: 'address',
       },
       {
-        indexed: !0,
+        indexed: true,
         name: 'to',
         type: 'address',
       },
       {
-        indexed: !1,
+        indexed: false,
         name: 'value',
         type: 'uint256',
       },
@@ -185,12 +185,26 @@ const T3RN_ABI = [
       },
     ],
   },
-  {
-    CA_ARBT: '0x8D86c3573928CE125f9b2df59918c383aa2B514D',
-    CA_OPSP: '0xF221750e52aA080835d2957F2Eed0d5d7dDD8C38',
-    RPC_ARBT: 'https://arbitrum-sepolia.blockpi.network/v1/rpc/public',
-    RPC_OPSP: 'https://sepolia.optimism.io',
-  },
 ];
 
-module.exports = T3RN_ABI;
+// Adding multiple RPC URLs
+const NETWORKS = 
+{
+  CA_ARBT: '0x8D86c3573928CE125f9b2df59918c383aa2B514D',
+  CA_OPSP: '0xF221750e52aA080835d2957F2Eed0d5d7dDD8C38',
+  RPC_ARBT: [
+    'https://arbitrum-sepolia.blockpi.network/v1/rpc/public'
+    'https://arbitrum-sepolia.drpc.org', 
+    'https://sepolia-rollup.arbitrum.io/rpc',
+    'https://arb-sepolia.g.alchemy.com/v2/zo_JeVGz6I8s9LnJLA6A1GJijbhIQoL-'
+  ],
+  RPC_OPSP: [
+    'https://sepolia.optimism.io', 
+    'https://optimism-sepolia.drpc.org',
+    'https://opt-sepolia.g.alchemy.com/v2/zo_JeVGz6I8s9LnJLA6A1GJijbhIQoL-',
+    'https://node.histori.xyz/optimism-sepolia/8ry9f6t9dct1se2hlagxnd9n2a',
+    'wss://optimism-sepolia.drpc.org'
+  ]
+};
+
+module.exports = { T3RN_ABI, NETWORKS };
