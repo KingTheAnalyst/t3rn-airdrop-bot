@@ -190,8 +190,8 @@ const T3RN_ABI = [
 // Adding multiple RPC URLs
 const NETWORKS = 
 {
-  CA_ARBT: '0x8D86c3573928CE125f9b2df59918c383aa2B514D',
-  CA_OPSP: '0xF221750e52aA080835d2957F2Eed0d5d7dDD8C38',
+  CA_ARBT: '0x22B65d0B9b59af4D3Ed59F18b9Ad53f5F4908B54',
+  CA_OPSP: '0xb6Def636914Ae60173d9007E732684a9eEDEF26E',
   RPC_ARBT: [
     'https://arbitrum-sepolia.drpc.org', 
     'https://sepolia-rollup.arbitrum.io/rpc',
