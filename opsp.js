@@ -8,11 +8,11 @@ const T3RN_ABI = require('./contracts/ABI');
 const { displayHeader } = require('./utils/display');
 const { transactionData, delay } = require('./chains/arbt/helper');
 const { getAmount } = require('./chains/arbt/api');
-const { writeLog } = require('./utils/log'); 
+const { writeLog } = require('./utils/log');
 
-const TOKEN_FILE_PATH = path.join(__dirname, 'ARBT_TX_HASH.txt');
+const TOKEN_FILE_PATH = path.join(__dirname, 'OPSP_TX_HASH.txt');  // Updated file for OPSP
 const PRIVATE_KEYS = JSON.parse(fs.readFileSync('privateKeys.json', 'utf-8'));
-const RPC_URLS = T3RN_ABI.map((entry) => entry.RPC_ARBT);
+const RPC_URLS = T3RN_ABI.map((entry) => entry.RPC_ARBT); // You may update this if there's a separate field for OPSP RPC URLs
 
 let currentRpcIndex = 0;
 
@@ -84,7 +84,7 @@ async function getProvider() {
             const request = transactionData(wallet.address, amount.hex, options);
             const gasPrice = parseUnits('0.1', 'gwei');
             const gasLimit = await provider.estimateGas({
-              to: T3RN_ABI.at(-1).CA_ARBT,
+              to: T3RN_ABI.at(-1).CA_OPST, // Updated for Optimism
               data: request,
               value: parseUnits('0.01', 'ether'),
               gasPrice,
@@ -92,7 +92,7 @@ async function getProvider() {
 
             const transaction = {
               data: request,
-              to: T3RN_ABI.at(-1).CA_ARBT,
+              to: T3RN_ABI.at(-1).CA_OPST, // Updated for Optimism
               gasLimit,
               gasPrice,
               from: wallet.address,
@@ -101,9 +101,9 @@ async function getProvider() {
 
             const result = await wallet.sendTransaction(transaction);
             console.log(`✅ Transaction successful to ${options === '1' ? 'Base' : options === '2' ? 'Blast' : 'OP'} Sepolia!`.green);
-            console.log(`🔗 Transaction hash: https://sepolia-explorer.arbitrum.io/tx/${result.hash}`.green);
-            writeLog(TOKEN_FILE_PATH, `[${moment().format('HH:mm:ss')}] https://sepolia-explorer.arbitrum.io/tx/${result.hash}`);
-            console.log('✅ Transaction hash saved to ARBT_TX_HASH.txt.'.green);
+            console.log(`🔗 Transaction hash: https://optimism-sepolia.blockscout.com/tx/${result.hash}`.green); // Updated explorer URL
+            writeLog(TOKEN_FILE_PATH, `[${moment().format('HH:mm:ss')}] https://optimism-sepolia.blockscout.com/tx/${result.hash}`);
+            console.log('✅ Transaction hash saved to OPSP_TX_HASH.txt.'.green);
 
             totalSuccess++;
             counter--;
